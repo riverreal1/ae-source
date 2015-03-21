@@ -8,15 +8,10 @@ App::App()
 	m_pD3DRenderer = nullptr;
 }
 
-App::~App()
-{
-
-}
-
 
 bool App::Init(HINSTANCE hInstance, int cmdShow)
 {
-	m_pWin32Window = new WinWindow(800, 600, "Test", hInstance, cmdShow);
+	m_pWin32Window = new WinWindow(800, 600, "Box demo", hInstance, cmdShow);
 
 	if (!m_pWin32Window->VInitWindow())
 	{
@@ -31,6 +26,14 @@ bool App::Init(HINSTANCE hInstance, int cmdShow)
 	}
 
 	return true;
+}
+
+void App::Render()
+{
+	m_pD3DRenderer->VStartRendering();
+	// render stuff
+
+	m_pD3DRenderer->VEndRendering();
 }
 
 void App::Run(HINSTANCE hInstance, int cmdShow)
@@ -52,7 +55,7 @@ void App::Run(HINSTANCE hInstance, int cmdShow)
 		}
 		else
 		{
-			m_pD3DRenderer->VStartRendering();
+			Render();
 		}
 	}
 

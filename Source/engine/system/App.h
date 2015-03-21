@@ -8,11 +8,11 @@ class App
 {
 public:
 	App();
-	~App();
 
 	void Run(HINSTANCE hInstance, int cmdShow);
 
 private:
+	void Render();
 	bool Init(HINSTANCE hInstance, int cmdShow);
 	void ShutDown();
 

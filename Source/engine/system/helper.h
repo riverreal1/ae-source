@@ -10,10 +10,5 @@ inline void SafeRelease(T& ptr)
 		ptr = NULL;
 	}
 }
-
-/*void ErrorMSG(LPCSTR msg)
-{
-	MessageBox(0, TEXT(msg), TEXT("ERROR"), MB_OK | MB_ICONEXCLAMATION);
-}*/
 #endif
 

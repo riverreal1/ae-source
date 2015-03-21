@@ -2,23 +2,21 @@
 #include"D3DInit.h"
 
 
-D3DInit::D3DInit(HWND* hWnd, unsigned int width, unsigned int height)
+D3DInit::D3DInit(HWND* hWnd, unsigned int width, unsigned int height) :
+m_pD3DDevice(nullptr),
+m_pD3DDeviceContext(nullptr),
+m_pD3DSwapChain(nullptr),
+
+m_pD3DRenderTargetView(nullptr),
+m_pD3DDepthStencilView(nullptr),
+m_pD3DDepthStencilBuffer(nullptr),
+m_pD3DDepthStencilState(nullptr),
+m_pD3DRasterizerState(nullptr),
+
+m_pHWnd(hWnd),
+m_width(width),
+m_height(height)
 {
-	m_pD3DDevice = nullptr;
-	m_pD3DDeviceContext = nullptr;
-	m_pD3DSwapChain = nullptr;
-
-	m_pD3DRenderTargetView = nullptr;
-	m_pD3DDepthStencilView = nullptr;
-	m_pD3DDepthStencilBuffer = nullptr;
-	m_pD3DDepthStencilState = nullptr;
-	m_pD3DRasterizerState = nullptr;
-
-	m_viewport;
-
-	m_pHWnd = hWnd;
-	m_width = width;
-	m_height = height;
 }
 
 D3DInit::~D3DInit()
@@ -72,8 +70,6 @@ bool D3DInit::CreateDevice()
 
 	D3D_FEATURE_LEVEL featureLevel;
 
-
-
 	hr = D3D11CreateDeviceAndSwapChain(nullptr, D3D_DRIVER_TYPE_HARDWARE,
 		nullptr, createDeviceFlags, featureLevels, _countof(featureLevels),
 		D3D11_SDK_VERSION, &swapChainDesc, &m_pD3DSwapChain, &m_pD3DDevice, &featureLevel,
@@ -91,15 +87,6 @@ bool D3DInit::CreateDevice()
 		MessageBox(0, TEXT("Failed to create d3d device"), TEXT("Error"), MB_OK);
 		//ErrorMSG("Failed to create d3d device.");
 		return false;
-
-	}
-	else
-	{
-		featureLevel = m_pD3DDevice->GetFeatureLevel();
-		if (featureLevel == D3D_FEATURE_LEVEL_11_0)
-		{
-			MessageBox(0, TEXT("Created D3D renderer with D3D_FEATURE_LEVEL_11_0"), TEXT("Sucessful"), MB_OK);
-		}
 
 	}
 
@@ -231,6 +218,8 @@ bool D3DInit::InitD3D()
 		return false;
 	}
 
+	SetViewport();
+
 	return true;
 }
 
@@ -251,14 +240,22 @@ void D3DInit::VStartRendering()
 {
 	assert(m_pD3DDeviceContext);
 	assert(m_pD3DSwapChain);
-	const float blue[4] = { 0.0f, 0.0f, 1.0f, 1.0f };
-	m_pD3DDeviceContext->ClearRenderTargetView(m_pD3DRenderTargetView, blue);
+	const float black[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
+	m_pD3DDeviceContext->ClearRenderTargetView(m_pD3DRenderTargetView, black);
 	m_pD3DDeviceContext->ClearDepthStencilView(m_pD3DDepthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
-
-	m_pD3DSwapChain->Present(1, 0);
 }
 
 void D3DInit::VEndRendering()
+{
+	m_pD3DSwapChain->Present(1, 0);
+}
+
+bool D3DInit::CreateShaders()
+{
+
+}
+
+void D3DInit::RenderBox()
 {
 
 }

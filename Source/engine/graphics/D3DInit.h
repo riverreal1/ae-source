@@ -24,6 +24,9 @@ protected:
 	bool CreateStates();
 	void SetViewport();
 
+	void RenderBox();
+	bool CreateShaders();
+
 protected:
 	//Used in CreateDevice()
 	ID3D11Device* m_pD3DDevice; //released
@@ -39,6 +42,14 @@ protected:
 
 	//Used in SetViewport()
 	D3D11_VIEWPORT m_viewport;
+
+	ID3D11Buffer* m_pD3DVertexBuffer;
+	ID3D11Buffer* m_pD3DIndexBuffer;
+
+	ID3D11InputLayout* m_pD3DInputLayout;
+
+	ID3D11VertexShader* m_pD3DVertexShader;
+	ID3D11PixelShader* m_pD3DPixelShader;
 
 private:
 	HWND* m_pHWnd;

@@ -12,7 +12,7 @@
 #include<string>
 #include<algorithm>
 
-#include"Source\engine\system\helper.h"
+#include"engine\system\helper.h"
 
 //link dependancies
 #pragma comment(lib, "d3d11.lib")
