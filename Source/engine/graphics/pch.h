@@ -12,8 +12,6 @@
 #include<string>
 #include<algorithm>
 
-#include"Source\engine\system\helper.h"
-
 //link dependancies
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxgi.lib")

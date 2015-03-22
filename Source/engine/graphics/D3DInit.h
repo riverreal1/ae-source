@@ -2,7 +2,13 @@
 #define _D3DINIT_H_
 
 #include"../interfaces/IRenderManager.h"
+#include<array>
 
+struct VertexPosColor
+{
+	DirectX::XMFLOAT3 Position;
+	DirectX::XMFLOAT3 Color;
+};
 
 class D3DInit : public IRenderManager
 {
@@ -27,6 +33,8 @@ protected:
 	void RenderBox();
 	bool CreateShaders();
 
+	void Update();
+
 protected:
 	//Used in CreateDevice()
 	ID3D11Device* m_pD3DDevice; //released
@@ -50,6 +58,24 @@ protected:
 
 	ID3D11VertexShader* m_pD3DVertexShader;
 	ID3D11PixelShader* m_pD3DPixelShader;
+
+	enum ConstantBuffer
+	{
+		CB_Application,
+		CB_Frame,
+		CB_Object,
+		NumCB
+	};
+
+	ID3D11Buffer* m_pConstantBuffers[NumCB];
+
+	DirectX::XMMATRIX m_worldMatrix;
+	DirectX::XMMATRIX m_viewMatrix;
+	DirectX::XMMATRIX m_projMatrix;
+
+	static const VertexPosColor m_vertices[8];
+
+	static const WORD m_indicies[36];
 
 private:
 	HWND* m_pHWnd;
